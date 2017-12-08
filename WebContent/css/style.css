@@ -1,0 +1,28 @@
+@charset "UTF-8";
+body {
+	background: url('img/bg.jpg');
+}
+img {
+	border:1px solid #C0C0C0;
+}
+
+article {
+	width: auto;	
+	float: left;
+	padding: 10px;
+}
+
+/*
+.bg-light {
+    background-color: #8b84f7!important;
+}
+nav {
+	color: white;
+}
+.navbar-light .navbar-nav .nav-link {
+    color: #ddd;
+}
+.navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link {
+    color: #f8f9fa;
+}
+*/
