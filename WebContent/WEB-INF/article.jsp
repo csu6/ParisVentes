@@ -10,9 +10,9 @@
 	<section>
 	<style>
 	article {
-    width:100px;
-    margin: 0 auto;
-}
+   	 width:100%;
+	    margin: 0 auto;
+	}
 	</style>
     ${article}
 	</section>
