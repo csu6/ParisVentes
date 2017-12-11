@@ -1,6 +1,5 @@
 package com.parisventes.servlets;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -12,47 +11,45 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 /**
- * Servlet implementation class Home
+ * Servlet implementation class Article
  */
-@WebServlet("")
-public class Home extends HttpServlet {
+@WebServlet("/article")
+public class Article extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
 	private static String FILENAME = "C:\\Users\\Administrateur\\eclipse-workspace\\ParisVentes\\WebContent\\articles.txt";
-    
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Home() {
+    public Article() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		request.setAttribute("request", this.getServletContext());
-		request.setAttribute("request2", request.getContextPath());
-		String path = this.getServletContext().getContextPath();
-		String pathCss = this.getServletContext().getRealPath("/WEB-INF/css");  
-		String pathImg = this.getServletContext().getRealPath("/WEB-INF/img");  
-		request.setAttribute("path", pathCss);
-		request.setAttribute("pathCss", pathCss);
-		request.setAttribute("pathImg", pathImg);
-		
 
-		String articles = readFile(FILENAME,  request);
+		Integer articleId = Integer.parseInt(request.getParameter("id"));
+		String article = readFile(FILENAME, articleId, request);
 		
-		request.setAttribute("articles", articles);
+		request.setAttribute("article", article);
 		
 		
-		this.getServletContext().getRequestDispatcher("/WEB-INF/home.jsp").forward(request, response);
+		this.getServletContext().getRequestDispatcher("/WEB-INF/article.jsp").forward(request, response);
 	}
 
-	private String readFile(String path, HttpServletRequest request) {
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+	
+	private String readFile(String path, Integer articleId, HttpServletRequest request) {
 		String s = "";
 		
 
@@ -60,6 +57,9 @@ public class Home extends HttpServlet {
 		List<String> allLines = Files.readAllLines(Paths.get(path));
 			for (String line : allLines) {
 			String arr[] = line.split("\\|");
+			System.out.println(Integer.parseInt(arr[0])+" == "+articleId);
+			if(Integer.parseInt(arr[0]) == articleId) {
+
 				s += "       <article>\r\n" + 
 						"	       <a href=\""+request.getContextPath()+"/article?id="+arr[0]+"\"><div class=\"card text-center\" style=\"width: 20rem;\">\r\n" + 
 						"			  <img class=\"card-img-top\" src=\"img/"+arr[2]+"\" alt=\""+arr[1]+"\">\r\n" + 
@@ -70,6 +70,7 @@ public class Home extends HttpServlet {
 						"			  </div>\r\n" + 
 						"			</div></a>\r\n" + 
 						"       </article>";
+			}
 				
 
 			}
@@ -77,14 +78,6 @@ public class Home extends HttpServlet {
 			e.printStackTrace();
 		}
 		return s;
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		doGet(request, response);
 	}
 
 }
