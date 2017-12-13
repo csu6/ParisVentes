@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.parisventes.beans.Article;
+import com.parisventes.beans.BDD;
+
 
 /**
  * Servlet implementation class Home
@@ -32,8 +35,10 @@ public class Home extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		/*
+		 * //response.getWriter().append("Served at: ").append(request.getContextPath());
 		request.setAttribute("request", this.getServletContext());
 		request.setAttribute("request2", request.getContextPath());
 		String path = this.getServletContext().getContextPath();
@@ -44,12 +49,24 @@ public class Home extends HttpServlet {
 		request.setAttribute("pathImg", pathImg);
 		
 
-		String articles = readFile(FILENAME,  request);
+		String articles1 = readFile(FILENAME,  request);
 		
-		request.setAttribute("articles", articles);
+		request.setAttribute("articles", articles1);
 		
 		
 		this.getServletContext().getRequestDispatcher("/WEB-INF/home.jsp").forward(request, response);
+		*/
+		
+		Article articles = new Article();
+		articles.setRequest(request);
+		
+		BDD bdd = new BDD(FILENAME);
+		request.setAttribute("articles", articles.findAll(bdd.readFile()));
+		
+		this.getServletContext().getRequestDispatcher("/WEB-INF/home.jsp").forward(request, response);
+		
+		
+		
 	}
 
 	private String readFile(String path, HttpServletRequest request) {

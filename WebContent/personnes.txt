@@ -1,0 +1,6 @@
+1|Vanessa|Caraes|Vanessa@hotmail.com|0612451214|123456
+2|Tchong|Ming|Tchong@hotmail.com|0612451214|123456
+3|Anne|Li|Anne@hotmail.com|0612451214|123456
+4|Franklin|XXX|Franklin@hotmail.com|0612451214|123456
+5|Remi|Espin|Remi@hotmail.com|0612451214|123456
+6|Mickael|AAA|mickael@hotmail.com|0612451214|123456
